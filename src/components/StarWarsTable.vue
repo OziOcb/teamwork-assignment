@@ -5,16 +5,16 @@
     </li>
   </ul>
 
-  <ul>
-    <li v-for="page in starWarsStore.numberOfPages" :key="page">
-      <button>{{ page }}</button>
-    </li>
-  </ul>
+  <PaginationButtons
+    :number-of-pages="starWarsStore.numberOfPages"
+    :current-page="starWarsStore.currentPage"
+  />
 </template>
 
 <script setup>
 import { onMounted } from "vue";
 import { useStarWarsStore } from "@/stores/star-wars";
+import PaginationButtons from "@/components/PaginationButtons.vue";
 
 const starWarsStore = useStarWarsStore();
 
