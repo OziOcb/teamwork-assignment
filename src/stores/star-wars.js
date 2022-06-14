@@ -7,6 +7,7 @@ export const useStarWarsStore = defineStore({
   state: () => ({
     people: [],
     totalNumberOfPeople: null,
+    isFetchingPeople: false,
     currentPage: 1,
   }),
 
@@ -16,6 +17,7 @@ export const useStarWarsStore = defineStore({
 
   actions: {
     async fetchPeople(page) {
+      this.isFetchingPeople = true;
       const response = await SwapiService.getAllPeople(page);
 
       if (!this.totalNumberOfPeople) {
@@ -23,6 +25,7 @@ export const useStarWarsStore = defineStore({
       }
 
       this.people = response.results;
+      this.isFetchingPeople = false;
     },
 
     setCurrentPage(newPage) {

@@ -1,5 +1,7 @@
 <template>
-  <ul>
+  <div v-if="starWarsStore.isFetchingPeople">spinner</div>
+
+  <ul v-else>
     <li v-for="person in starWarsStore.people" :key="person.url">
       {{ person.name }}
     </li>
