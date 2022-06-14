@@ -1,7 +1,10 @@
 <template>
   <ul>
     <li v-for="page in numberOfPages" :key="page">
-      <button :class="page === currentPage ? 'active' : ''">
+      <button
+        :class="page === currentPage ? 'active' : ''"
+        @click="handleButtonClick(page)"
+      >
         {{ page }}
       </button>
     </li>
@@ -19,6 +22,12 @@ defineProps({
     required: true,
   },
 });
+
+const emit = defineEmits(["changePage"]);
+
+function handleButtonClick(page) {
+  emit("changePage", page);
+}
 </script>
 
 <style lang="scss" scoped>

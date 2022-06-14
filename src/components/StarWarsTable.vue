@@ -8,6 +8,7 @@
   <PaginationButtons
     :number-of-pages="starWarsStore.numberOfPages"
     :current-page="starWarsStore.currentPage"
+    @changePage="handleChangePage"
   />
 </template>
 
@@ -21,4 +22,9 @@ const starWarsStore = useStarWarsStore();
 onMounted(() => {
   starWarsStore.fetchPeople();
 });
+
+function handleChangePage(page) {
+  starWarsStore.setCurrentPage(page);
+  starWarsStore.fetchPeople(page);
+}
 </script>

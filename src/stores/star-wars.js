@@ -15,14 +15,18 @@ export const useStarWarsStore = defineStore({
   },
 
   actions: {
-    async fetchPeople() {
-      const response = await SwapiService.getAllPeople(this.currentPage);
+    async fetchPeople(page) {
+      const response = await SwapiService.getAllPeople(page);
 
       if (!this.totalNumberOfPeople) {
         this.totalNumberOfPeople = response.count;
       }
 
       this.people = response.results;
+    },
+
+    setCurrentPage(newPage) {
+      this.currentPage = newPage;
     },
   },
 });
