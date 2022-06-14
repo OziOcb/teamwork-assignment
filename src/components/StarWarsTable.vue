@@ -22,7 +22,7 @@ import PaginationButtons from "@/components/PaginationButtons.vue";
 const starWarsStore = useStarWarsStore();
 
 onMounted(() => {
-  starWarsStore.fetchPeople();
+  starWarsStore.fetchPeople(1);
 });
 
 function handleChangePage(page) {

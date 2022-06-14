@@ -6,25 +6,32 @@ export const useStarWarsStore = defineStore({
 
   state: () => ({
     people: [],
-    totalNumberOfPeople: null,
+    numberOfPeople: null,
     isFetchingPeople: false,
     currentPage: 1,
   }),
 
   getters: {
-    numberOfPages: (state) => Math.ceil(state.totalNumberOfPeople / 10),
+    numberOfPages: (state) => Math.ceil(state.numberOfPeople / 10),
   },
 
   actions: {
     async fetchPeople(page) {
       this.isFetchingPeople = true;
-      const response = await SwapiService.getAllPeople(page);
 
-      if (!this.totalNumberOfPeople) {
-        this.totalNumberOfPeople = response.count;
+      let res;
+      const localPeoplePage = localStorage.getItem(`starWarsPeoplePage${page}`);
+
+      if (!localPeoplePage) {
+        res = await SwapiService.getAllPeople(page);
+        localStorage.setItem(`starWarsPeoplePage${page}`, JSON.stringify(res));
+      } else {
+        res = JSON.parse(localPeoplePage);
       }
 
-      this.people = response.results;
+      if (!this.numberOfPeople) this.numberOfPeople = res.count;
+
+      this.people = res.results;
       this.isFetchingPeople = false;
     },
 
