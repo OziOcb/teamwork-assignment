@@ -4,6 +4,12 @@
       {{ person.name }}
     </li>
   </ul>
+
+  <ul>
+    <li v-for="page in starWarsStore.numberOfPages" :key="page">
+      <button>{{ page }}</button>
+    </li>
+  </ul>
 </template>
 
 <script setup>

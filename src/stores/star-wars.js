@@ -6,12 +6,21 @@ export const useStarWarsStore = defineStore({
 
   state: () => ({
     people: [],
+    totalNumberOfPeople: null,
     currentPage: 1,
   }),
+
+  getters: {
+    numberOfPages: (state) => Math.ceil(state.totalNumberOfPeople / 10),
+  },
 
   actions: {
     async fetchPeople() {
       const response = await SwapiService.getAllPeople(this.currentPage);
+
+      if (!this.totalNumberOfPeople) {
+        this.totalNumberOfPeople = response.count;
+      }
 
       this.people = response.results;
     },
