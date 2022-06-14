@@ -1,10 +1,10 @@
 import { describe, it, expect } from "vitest";
 
 import { shallowMount } from "@vue/test-utils";
-import HelloWorld from "@/components/HelloWorld.vue";
+import StarWarsTable from "@/components/StarWarsTable.vue";
 
 function factory({ data, propsData } = {}) {
-  return shallowMount(HelloWorld, {
+  return shallowMount(StarWarsTable, {
     data() {
       return { ...data };
     },
@@ -12,9 +12,9 @@ function factory({ data, propsData } = {}) {
   });
 }
 
-describe("HelloWorld", () => {
-  it("renders HelloWorld component", () => {
+describe("StarWarsTable", () => {
+  it("renders StarWarsTable component", () => {
     const wrapper = factory();
-    expect(wrapper.findComponent(HelloWorld).exists()).toBe(true);
+    expect(wrapper.findComponent(StarWarsTable).exists()).toBe(true);
   });
 });

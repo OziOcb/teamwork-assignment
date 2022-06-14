@@ -1,9 +1,9 @@
 <template>
   <main>
-    <HelloWorld />
+    <StarWarsTable />
   </main>
 </template>
 
 <script setup>
-import HelloWorld from "@/components/HelloWorld.vue";
+import StarWarsTable from "@/components/StarWarsTable.vue";
 </script>
