@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul class="paginationButtons">
     <li v-for="page in numberOfPages" :key="page">
       <button
         :class="page === currentPage ? 'active' : ''"
@@ -31,6 +31,10 @@ function handleButtonClick(page) {
 </script>
 
 <style lang="scss" scoped>
+.paginationButtons {
+  display: flex;
+  list-style: none;
+}
 .active {
   background-color: #ada; // REMOVE_ME: remove when done!
 }
