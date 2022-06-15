@@ -1,15 +1,11 @@
 <template>
-  <!-- TODO: ENDED HERE! Extract this to a separate component-->
-  <div>
-    <label for="filter">filter</label>
-    <input
-      type="text"
-      name="filter"
-      v-model="filter"
-      :disabled="starWarsStore.isFetchingPeople"
-    />
-  </div>
+  <BaseInput
+    v-model:filter="filter"
+    label="filter"
+    :disabled="starWarsStore.isFetchingPeople"
+  />
 
+  <!-- TODO: ENDED HERE! Create spinner -->
   <div v-if="starWarsStore.isFetchingPeople">spinner</div>
 
   <table v-else class="table">
@@ -47,6 +43,7 @@ import { ref, onMounted, computed, watch } from "vue";
 import { useStarWarsStore } from "@/stores/star-wars";
 import { useDebouncedRef } from "@/utilities/debouncedRef";
 import PaginationButtons from "@/components/PaginationButtons.vue";
+import BaseInput from "@/components/BaseInput.vue";
 
 const starWarsStore = useStarWarsStore();
 
