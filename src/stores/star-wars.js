@@ -25,7 +25,7 @@ export const useStarWarsStore = defineStore({
           mass: +person.mass,
           created: formatDate(person.created),
           edited: formatDate(person.edited),
-          planetName: person.homeworld,
+          homeworld: person.homeworld,
         });
       });
 

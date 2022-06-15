@@ -18,6 +18,10 @@
         >
           {{ _startCase(column) }}
         </th>
+
+        <th class="table__header" @click="handleSort('homeworld')">
+          Planet Name
+        </th>
       </tr>
     </thead>
 
@@ -25,6 +29,12 @@
       <tr v-for="person in sortedPeople" :key="person.url">
         <td v-for="(data, index) in personData" :key="index">
           {{ person[data] }}
+        </td>
+
+        <td>
+          <button @click="handleClickOnPlanetName(person.homeworld)">
+            {{ findPlanetName(person.homeworld) }}
+          </button>
         </td>
       </tr>
     </tbody>
@@ -41,6 +51,7 @@
 import { ref, onMounted, computed, watch } from "vue";
 import { useStarWarsStore } from "@/stores/star-wars";
 import debouncedRef from "@/utilities/debouncedRef";
+import planets from "@/utilities/planets";
 import _startCase from "lodash.startcase";
 import BaseInput from "@/components/BaseInput.vue";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
@@ -53,14 +64,18 @@ onMounted(() => {
 });
 
 // Table - start;
-const personData = ref([
-  "name",
-  "height",
-  "mass",
-  "created",
-  "edited",
-  "planetName",
-]);
+const personData = ref(["name", "height", "mass", "created", "edited"]);
+
+function findPlanetName(url) {
+  const planetNumber = url.split("/")[5];
+  return planets[planetNumber];
+}
+
+function handleClickOnPlanetName(url) {
+  // TODO: ENDED HERE! Show Popup
+  // prettier-ignore
+  console.log("-\n--\n url \n >", url, "\n--\n-") // REMOVE_ME: remove when done!
+}
 // Table - end
 
 // FilterBy - start
