@@ -2,11 +2,20 @@
   <div class="spinner"></div>
 </template>
 
+<script setup>
+defineProps({
+  size: {
+    type: String,
+    default: "50px",
+  },
+});
+</script>
+
 <style lang="scss" scoped>
 .spinner {
   display: inline-block;
-  width: 50px;
-  height: 50px;
+  width: v-bind(size);
+  height: v-bind(size);
   border: 3px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   border-top-color: var(--color-text);
