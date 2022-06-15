@@ -5,8 +5,7 @@
     :disabled="starWarsStore.isFetchingPeople"
   />
 
-  <!-- TODO: ENDED HERE! Create spinner -->
-  <div v-if="starWarsStore.isFetchingPeople">spinner</div>
+  <LoadingSpinner v-if="starWarsStore.isFetchingPeople" />
 
   <table v-else class="table">
     <thead class="table__head">
@@ -43,8 +42,9 @@ import { ref, onMounted, computed, watch } from "vue";
 import { useStarWarsStore } from "@/stores/star-wars";
 import debouncedRef from "@/utilities/debouncedRef";
 import _startCase from "lodash.startcase";
-import PaginationButtons from "@/components/PaginationButtons.vue";
 import BaseInput from "@/components/BaseInput.vue";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
+import PaginationButtons from "@/components/PaginationButtons.vue";
 
 const starWarsStore = useStarWarsStore();
 
