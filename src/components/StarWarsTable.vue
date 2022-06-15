@@ -1,7 +1,13 @@
 <template>
+  <!-- TODO: ENDED HERE! Extract this to a separate component-->
   <div>
     <label for="filter">filter</label>
-    <input type="text" name="filter" v-model="filter" />
+    <input
+      type="text"
+      name="filter"
+      v-model="filter"
+      :disabled="starWarsStore.isFetchingPeople"
+    />
   </div>
 
   <div v-if="starWarsStore.isFetchingPeople">spinner</div>
@@ -39,6 +45,7 @@
 <script setup>
 import { ref, onMounted, computed, watch } from "vue";
 import { useStarWarsStore } from "@/stores/star-wars";
+import { useDebouncedRef } from "@/utilities/debouncedRef";
 import PaginationButtons from "@/components/PaginationButtons.vue";
 
 const starWarsStore = useStarWarsStore();
@@ -49,7 +56,7 @@ onMounted(() => {
 
 let currentSort = ref("name");
 let currentSortDir = ref("asc");
-const filter = ref("");
+const filter = useDebouncedRef("", 300);
 const personData = ref([
   "name",
   "height",
@@ -60,7 +67,6 @@ const personData = ref([
 ]);
 
 watch(filter, (newValue) => {
-  // TODO: ENDED HERE! Add debounce
   starWarsStore.setCurrentPage(1);
 
   !newValue
