@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import formatDate from "@/utilities/formatDate";
 import SwapiService from "@/services/swapi-service";
 
 export const useStarWarsStore = defineStore({
@@ -13,6 +14,23 @@ export const useStarWarsStore = defineStore({
 
   getters: {
     numberOfPages: (state) => Math.ceil(state.numberOfPeople / 10),
+
+    getPeople: (state) => {
+      const peopleArray = [];
+
+      state.people.forEach((person) => {
+        peopleArray.push({
+          name: person.name,
+          height: +person.height,
+          mass: +person.mass,
+          created: formatDate(person.created),
+          edited: formatDate(person.edited),
+          planetName: person.homeworld,
+        });
+      });
+
+      return peopleArray;
+    },
   },
 
   actions: {

@@ -1,6 +1,6 @@
 import { customRef } from "vue";
 
-export function useDebouncedRef(value, delay = 200) {
+export default (value, delay = 200) => {
   let timeout;
   return customRef((track, trigger) => {
     return {
@@ -17,4 +17,4 @@ export function useDebouncedRef(value, delay = 200) {
       },
     };
   });
-}
+};
