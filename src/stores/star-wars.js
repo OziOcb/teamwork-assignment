@@ -16,7 +16,7 @@ export const useStarWarsStore = defineStore({
   },
 
   actions: {
-    async fetchPeople(page) {
+    async fetchPeople(page = this.currentPage) {
       this.isFetchingPeople = true;
 
       let res;
@@ -29,8 +29,17 @@ export const useStarWarsStore = defineStore({
         res = JSON.parse(localPeoplePage);
       }
 
-      if (!this.numberOfPeople) this.numberOfPeople = res.count;
+      this.numberOfPeople = res.count;
+      this.people = res.results;
+      this.isFetchingPeople = false;
+    },
 
+    async fetchFilteredPeople(filter, page) {
+      this.isFetchingPeople = true;
+
+      const res = await SwapiService.getFilteredPeople(filter, page);
+
+      this.numberOfPeople = res.count;
       this.people = res.results;
       this.isFetchingPeople = false;
     },

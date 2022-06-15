@@ -12,4 +12,16 @@ export default {
       console.error(error);
     }
   },
+
+  async getFilteredPeople(filter, page = 1) {
+    try {
+      const { data } = await axios.get(
+        `${baseURL}people/?search=${filter}&page=${page}`
+      );
+
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  },
 };

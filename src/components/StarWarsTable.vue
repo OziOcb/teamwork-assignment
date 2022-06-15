@@ -1,30 +1,33 @@
 <template>
+  <div>
+    <label for="filter">filter</label>
+    <input type="text" name="filter" v-model="filter" />
+  </div>
+
   <div v-if="starWarsStore.isFetchingPeople">spinner</div>
 
-  <template v-else>
-    <table class="table">
-      <thead class="table__head">
-        <tr>
-          <th
-            class="table__header"
-            v-for="column in personData"
-            :key="column"
-            @click="handleSort(column)"
-          >
-            {{ formatColumnTitle(column) }}
-          </th>
-        </tr>
-      </thead>
+  <table v-else class="table">
+    <thead class="table__head">
+      <tr>
+        <th
+          class="table__header"
+          v-for="column in personData"
+          :key="column"
+          @click="handleSort(column)"
+        >
+          {{ formatColumnTitle(column) }}
+        </th>
+      </tr>
+    </thead>
 
-      <tbody>
-        <tr v-for="person in sortedPeople" :key="person.url">
-          <td v-for="(data, index) in personData" :key="index">
-            {{ person[data] }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </template>
+    <tbody>
+      <tr v-for="person in sortedPeople" :key="person.url">
+        <td v-for="(data, index) in personData" :key="index">
+          {{ person[data] }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
   <PaginationButtons
     :number-of-pages="starWarsStore.numberOfPages"
@@ -34,7 +37,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, watch } from "vue";
 import { useStarWarsStore } from "@/stores/star-wars";
 import PaginationButtons from "@/components/PaginationButtons.vue";
 
@@ -46,6 +49,7 @@ onMounted(() => {
 
 let currentSort = ref("name");
 let currentSortDir = ref("asc");
+const filter = ref("");
 const personData = ref([
   "name",
   "height",
@@ -54,6 +58,15 @@ const personData = ref([
   "edited",
   "homeworld",
 ]);
+
+watch(filter, (newValue) => {
+  // TODO: ENDED HERE! Add debounce
+  starWarsStore.setCurrentPage(1);
+
+  !newValue
+    ? starWarsStore.fetchPeople(1)
+    : starWarsStore.fetchFilteredPeople(newValue);
+});
 
 // FIXME: There's a weird bug when a value for Height and Mass is "unknown". Try to fix it or consider using 3rd party plugin
 const sortedPeople = computed(() => {
@@ -85,6 +98,9 @@ function formatColumnTitle(text) {
 
 function handleChangePage(page) {
   starWarsStore.setCurrentPage(page);
-  starWarsStore.fetchPeople(page);
+
+  !filter.value
+    ? starWarsStore.fetchPeople(page)
+    : starWarsStore.fetchFilteredPeople(filter.value, page);
 }
 </script>
