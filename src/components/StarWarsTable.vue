@@ -1,7 +1,7 @@
 <template>
   <BaseInput
-    v-model:filter="filter"
-    label="filter"
+    v-model:filterBy="filterBy"
+    label="filterBy"
     :disabled="starWarsStore.isFetchingPeople"
   />
 
@@ -51,9 +51,7 @@ onMounted(() => {
   starWarsStore.fetchPeople(1);
 });
 
-let currentSort = ref("name");
-let currentSortDir = ref("asc");
-const filter = useDebouncedRef("", 300);
+// Table - start
 const personData = ref([
   "name",
   "height",
@@ -63,13 +61,27 @@ const personData = ref([
   "homeworld",
 ]);
 
-watch(filter, (newValue) => {
+function formatColumnTitle(text) {
+  if (text === "homeworld") return "Planet Name";
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+// Table - end
+
+// FilterBy - start
+const filterBy = useDebouncedRef("", 300);
+
+watch(filterBy, (newValue) => {
   starWarsStore.setCurrentPage(1);
 
   !newValue
     ? starWarsStore.fetchPeople(1)
     : starWarsStore.fetchFilteredPeople(newValue);
 });
+// FilterBy - end
+
+// Sort - start
+let currentSort = ref("name");
+let currentSortDir = ref("asc");
 
 // FIXME: There's a weird bug when a value for Height and Mass is "unknown". Try to fix it or consider using 3rd party plugin
 const sortedPeople = computed(() => {
@@ -93,17 +105,15 @@ function handleSort(sortBy) {
   }
   currentSort.value = sortBy;
 }
+// Sort - end
 
-function formatColumnTitle(text) {
-  if (text === "homeworld") return "Planet Name";
-  return text.charAt(0).toUpperCase() + text.slice(1);
-}
-
+// Pagination - start
 function handleChangePage(page) {
   starWarsStore.setCurrentPage(page);
 
-  !filter.value
+  !filterBy.value
     ? starWarsStore.fetchPeople(page)
-    : starWarsStore.fetchFilteredPeople(filter.value, page);
+    : starWarsStore.fetchFilteredPeople(filterBy.value, page);
 }
+// Pagination - end
 </script>

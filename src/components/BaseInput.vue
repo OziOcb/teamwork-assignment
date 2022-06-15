@@ -6,17 +6,17 @@
       :type="type"
       :name="label"
       :disabled="disabled"
-      :value="filter"
+      :value="filterBy"
       @input="handleInputChange"
     />
 
-    <button v-if="!!filter" @click="handleInputClear">x</button>
+    <button v-if="!!filterBy" @click="handleInputClear">x</button>
   </div>
 </template>
 
 <script setup>
 defineProps({
-  filter: {
+  filterBy: {
     type: String,
     required: true,
   },
@@ -34,13 +34,13 @@ defineProps({
   },
 });
 
-const emit = defineEmits(["update:filter"]);
+const emit = defineEmits(["update:filterBy"]);
 
 function handleInputChange($event) {
-  emit("update:filter", $event.target.value);
+  emit("update:filterBy", $event.target.value);
 }
 
 function handleInputClear() {
-  emit("update:filter", "");
+  emit("update:filterBy", "");
 }
 </script>
