@@ -76,7 +76,7 @@ function handleClickOnPlanetName(url) {
 const filterBy = debouncedRef("", 300);
 
 watch(filterBy, (newValue) => {
-  starWarsStore.setCurrentPage(1);
+  starWarsStore.currentPage = 1;
 
   !newValue
     ? starWarsStore.fetchPeople(1)
@@ -110,7 +110,7 @@ function handleSort(sortBy) {
 
 // Pagination - start
 function handleChangePage(page) {
-  starWarsStore.setCurrentPage(page);
+  starWarsStore.currentPage = page;
 
   !filterBy.value
     ? starWarsStore.fetchPeople(page)

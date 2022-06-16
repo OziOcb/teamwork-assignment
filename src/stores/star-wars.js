@@ -44,9 +44,5 @@ export const useStarWarsStore = defineStore({
       this.people = generatePeopleArray(data);
       this.isFetchingPeople = false;
     },
-
-    setCurrentPage(newPage) {
-      this.currentPage = newPage;
-    },
   },
 });
