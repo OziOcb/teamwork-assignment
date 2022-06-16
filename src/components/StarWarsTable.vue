@@ -32,7 +32,7 @@
         </td>
 
         <td>
-          <button @click="handleClickOnPlanetName(person.planetUrl)">
+          <button @click="handleOpenPopup(person.planetUrl)">
             {{ person.planetName }}
           </button>
         </td>
@@ -65,10 +65,9 @@ onMounted(() => {
 // Table - start;
 const personData = ref(["name", "height", "mass", "created", "edited"]);
 
-function handleClickOnPlanetName(url) {
-  // TODO: ENDED HERE! Show Popup
-  // prettier-ignore
-  console.log("-\n--\n url \n >", url, "\n--\n-") // REMOVE_ME: remove when done!
+function handleOpenPopup(url) {
+  starWarsStore.isPopupOpen = true;
+  starWarsStore.fetchPlanet(url);
 }
 // Table - end
 

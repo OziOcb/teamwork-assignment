@@ -24,4 +24,14 @@ export default {
       console.error(error);
     }
   },
+
+  async getPlanet(planetNumber = 1) {
+    try {
+      const { data } = await axios.get(`${baseURL}planets/${planetNumber}`);
+
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  },
 };

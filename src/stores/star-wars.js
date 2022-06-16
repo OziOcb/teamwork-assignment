@@ -10,6 +10,9 @@ export const useStarWarsStore = defineStore({
     numberOfPeople: null,
     isFetchingPeople: false,
     currentPage: 1,
+    isPopupOpen: false,
+    isFetchingPlanet: false,
+    planet: {},
   }),
 
   getters: {
@@ -43,6 +46,33 @@ export const useStarWarsStore = defineStore({
       this.numberOfPeople = data.count;
       this.people = generatePeopleArray(data);
       this.isFetchingPeople = false;
+    },
+
+    async fetchPlanet(url) {
+      this.isFetchingPlanet = true;
+
+      const planetNo = url.split("/")[5];
+
+      let data;
+      const localData = localStorage.getItem(`starWarsPlanet${planetNo}`);
+
+      if (!localData) {
+        const res = await SwapiService.getPlanet(planetNo);
+
+        data = {
+          name: res.name,
+          diameter: res.diameter,
+          climate: res.climate,
+          population: res.population,
+        };
+
+        localStorage.setItem(`starWarsPlanet${planetNo}`, JSON.stringify(data));
+      } else {
+        data = JSON.parse(localData);
+      }
+
+      this.planet = data;
+      this.isFetchingPlanet = false;
     },
   },
 });

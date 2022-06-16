@@ -1,5 +1,5 @@
 <template>
-  <ThePopup />
+  <StarWarsPopup />
 
   <header>
     <nav>
@@ -13,7 +13,7 @@
 
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
-import ThePopup from "@/components/ThePopup.vue";
+import StarWarsPopup from "@/components/StarWarsPopup.vue";
 </script>
 
 <style lang="scss">
