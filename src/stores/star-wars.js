@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import formatDate from "@/utilities/formatDate";
+import findPlanetName from "@/utilities/findPlanetName";
 import SwapiService from "@/services/swapi-service";
 
 export const useStarWarsStore = defineStore({
@@ -25,7 +26,8 @@ export const useStarWarsStore = defineStore({
           mass: +person.mass,
           created: formatDate(person.created),
           edited: formatDate(person.edited),
-          homeworld: person.homeworld,
+          planetName: findPlanetName(person.homeworld),
+          planetUrl: person.homeworld,
         });
       });
 

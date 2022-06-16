@@ -19,7 +19,7 @@
           {{ _startCase(column) }}
         </th>
 
-        <th class="table__header" @click="handleSort('homeworld')">
+        <th class="table__header" @click="handleSort('planetName')">
           Planet Name
         </th>
       </tr>
@@ -32,8 +32,8 @@
         </td>
 
         <td>
-          <button @click="handleClickOnPlanetName(person.homeworld)">
-            {{ findPlanetName(person.homeworld) }}
+          <button @click="handleClickOnPlanetName(person.planetUrl)">
+            {{ person.planetName }}
           </button>
         </td>
       </tr>
@@ -51,7 +51,6 @@
 import { ref, onMounted, computed, watch } from "vue";
 import { useStarWarsStore } from "@/stores/star-wars";
 import debouncedRef from "@/utilities/debouncedRef";
-import planets from "@/utilities/planets";
 import _startCase from "lodash.startcase";
 import BaseInput from "@/components/BaseInput.vue";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
@@ -65,11 +64,6 @@ onMounted(() => {
 
 // Table - start;
 const personData = ref(["name", "height", "mass", "created", "edited"]);
-
-function findPlanetName(url) {
-  const planetNumber = url.split("/")[5];
-  return planets[planetNumber];
-}
 
 function handleClickOnPlanetName(url) {
   // TODO: ENDED HERE! Show Popup

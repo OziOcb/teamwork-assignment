@@ -1,7 +1,7 @@
 // This might seems like a little bit hacky approach, but:
 // 1. Normally I would ask backend developers to add planetName property to the response coming from /people/n endpoint.
 // 2. Another solution would be to hit the /planets/n endpoint for each person, which would be a waste of users bandwidth.
-export default {
+const planets = {
   1: "Tatooine",
   2: "Alderaan",
   3: "Yavin IV",
@@ -62,4 +62,9 @@ export default {
   58: "Shili",
   59: "Kalee",
   60: "Umbara",
+};
+
+export default (url) => {
+  const planetNumber = url.split("/")[5];
+  return planets[planetNumber];
 };
