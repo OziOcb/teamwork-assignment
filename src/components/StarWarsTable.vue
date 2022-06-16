@@ -93,7 +93,7 @@ const sortedPeople = computed(() => {
   const sortBy = currentSort.value;
   let modifier = currentSortDir.value === "desc" ? -1 : 1;
 
-  return [...starWarsStore.getPeople].sort((a, b) => {
+  return [...starWarsStore.people].sort((a, b) => {
     if (a[sortBy] < b[sortBy]) return -1 * modifier;
     if (a[sortBy] > b[sortBy]) return 1 * modifier;
     return 0;
