@@ -4,11 +4,11 @@ import findPlanetName from "@/utilities/findPlanetName";
 export default (data) => {
   const peopleArray = [];
 
-  data.results.forEach((person) => {
+  data.forEach((person) => {
     peopleArray.push({
       name: person.name,
-      height: +person.height,
-      mass: +person.mass,
+      height: !isNaN(+person.height) ? +person.height : 0,
+      mass: !isNaN(+person.mass) ? +person.mass : 0,
       created: formatDate(person.created),
       edited: formatDate(person.edited),
       planetName: findPlanetName(person.homeworld),

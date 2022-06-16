@@ -27,24 +27,30 @@ export const useStarWarsStore = defineStore({
       const localData = localStorage.getItem(`starWarsPeoplePage${page}`);
 
       if (!localData) {
-        data = await SwapiService.getAllPeople(page);
+        const res = await SwapiService.getAllPeople(page);
+
+        data = {
+          count: res.count,
+          results: generatePeopleArray(res.results),
+        };
+
         localStorage.setItem(`starWarsPeoplePage${page}`, JSON.stringify(data));
       } else {
         data = JSON.parse(localData);
       }
 
       this.numberOfPeople = data.count;
-      this.people = generatePeopleArray(data);
+      this.people = data.results;
       this.isFetchingPeople = false;
     },
 
     async fetchFilteredPeople(filter, page) {
       this.isFetchingPeople = true;
 
-      const data = await SwapiService.getFilteredPeople(filter, page);
+      const res = await SwapiService.getFilteredPeople(filter, page);
 
-      this.numberOfPeople = data.count;
-      this.people = generatePeopleArray(data);
+      this.numberOfPeople = res.count;
+      this.people = generatePeopleArray(res.results);
       this.isFetchingPeople = false;
     },
 
