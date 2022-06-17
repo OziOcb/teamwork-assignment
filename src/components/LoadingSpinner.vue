@@ -16,9 +16,9 @@ defineProps({
   display: inline-block;
   width: v-bind(size);
   height: v-bind(size);
-  border: 3px solid rgba(255, 255, 255, 0.3);
+  border: 3px solid rgba($color-tertiary, 0.3);
   border-radius: 50%;
-  border-top-color: var(--color-text);
+  border-top-color: $color-primary;
   animation: spin 1s ease-in-out infinite;
 }
 

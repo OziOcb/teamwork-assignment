@@ -1,17 +1,20 @@
 <template>
   <ul class="paginationButtons">
     <li v-for="page in numberOfPages" :key="page">
-      <button
-        :class="page === currentPage ? 'active' : ''"
+      <BaseButton
+        class="button"
+        :class="page === currentPage ? 'button--active' : ''"
         @click="handleButtonClick(page)"
       >
         {{ page }}
-      </button>
+      </BaseButton>
     </li>
   </ul>
 </template>
 
 <script setup>
+import BaseButton from "@/components/BaseButton.vue";
+
 defineProps({
   numberOfPages: {
     type: Number,
@@ -33,9 +36,15 @@ function handleButtonClick(page) {
 <style lang="scss" scoped>
 .paginationButtons {
   display: flex;
+  justify-content: center;
   list-style: none;
+  padding: 0;
 }
-.active {
-  background-color: #ada; // REMOVE_ME: remove when done!
+.button {
+  margin-right: 0.8rem;
+
+  &--active {
+    background-color: $color-secondary;
+  }
 }
 </style>

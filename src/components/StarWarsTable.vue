@@ -5,40 +5,45 @@
     :disabled="starWarsStore.isFetchingPeople"
   />
 
-  <LoadingSpinner v-if="starWarsStore.isFetchingPeople" />
+  <div v-if="starWarsStore.isFetchingPeople" class="loading-spinner">
+    <LoadingSpinner />
+  </div>
 
-  <table v-else class="table">
-    <thead class="table__head">
-      <tr>
-        <th
-          class="table__header"
-          v-for="column in personData"
-          :key="column"
-          @click="handleSort(column)"
-        >
-          {{ _startCase(column) }}
-        </th>
-
-        <th class="table__header" @click="handleSort('planetName')">
-          Planet Name
-        </th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr v-for="person in sortedPeople" :key="person.url">
-        <td v-for="(data, index) in personData" :key="index">
-          {{ person[data] }}
-        </td>
-
-        <td>
-          <BaseButton @click="handleOpenPopup(person.planetUrl)">
-            {{ person.planetName }}
-          </BaseButton>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <section v-else class="table">
+    <table class="table__inner">
+      <thead class="table__head">
+        <tr>
+          <th
+            class="table__header"
+            :class="column === 'name' ? 'table__header--name' : ''"
+            v-for="column in personData"
+            :key="column"
+            @click="handleSort(column)"
+          >
+            {{ _startCase(column) }}
+          </th>
+          <th class="table__header" @click="handleSort('planetName')">
+            Planet Name
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table__row" v-for="person in sortedPeople" :key="person.url">
+          <td v-for="(data, index) in personData" :key="index">
+            {{ person[data] }}
+          </td>
+          <td>
+            <BaseButton
+              class="table__button"
+              @click="handleOpenPopup(person.planetUrl)"
+            >
+              {{ person.planetName }}
+            </BaseButton>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 
   <PaginationButtons
     :number-of-pages="starWarsStore.numberOfPages"
@@ -118,3 +123,39 @@ function handleChangePage(page) {
 }
 // Pagination - end
 </script>
+
+<style lang="scss" scoped>
+.loading-spinner {
+  min-height: 41.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  overflow-y: scroll;
+
+  &__inner {
+    width: 100%;
+    min-width: 70rem;
+  }
+
+  &__header {
+    text-align: left;
+
+    &--name {
+      width: 18rem;
+    }
+  }
+
+  &__button {
+    width: 100%;
+  }
+
+  &__row:nth-child(odd) {
+    background-color: $color-body-bg-darker;
+  }
+}
+</style>
