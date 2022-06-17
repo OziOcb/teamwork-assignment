@@ -18,3 +18,7 @@ $color-heading-text: $color-text-primary;
 $color-primary: #B98157;
 $color-secondary: #70503B;
 $color-tertiary: #6D9796;
+
+// MENU
+$color-menu-gradient: radial-gradient(100% 225% at 100% 0%, $color-tertiary 0%, $color-black 100%), linear-gradient(236deg, $color-white 10%, $color-black 100%), linear-gradient(135deg, $color-accent 0%, $color-accent 36%, $color-primary 36%, $color-primary 60%, $color-secondary 60%, $color-secondary 67%, $color-black 67%, $color-black 100%);
+$color-menu-gradient-blend-mode: overlay, hard-light, normal;

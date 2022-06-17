@@ -1,18 +1,14 @@
 <template>
   <StarWarsPopup />
 
-  <header>
-    <nav>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/assignment">Assignment</RouterLink>
-    </nav>
-  </header>
+  <TheHeader />
 
   <RouterView />
 </template>
 
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
+import { RouterView } from "vue-router";
+import TheHeader from "@/components/TheHeader.vue";
 import StarWarsPopup from "@/components/StarWarsPopup.vue";
 </script>
 
@@ -44,5 +40,12 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  margin: 0 auto;
+  padding-right: $size-gutter-width;
+  padding-left: $size-gutter-width;
+  max-width: $size-container-max-width;
 }
 </style>
