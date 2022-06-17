@@ -27,7 +27,6 @@ html {
 }
 
 body {
-  min-height: 100vh;
   color: $color-text-primary;
   background: $color-body-bg;
   transition: color $duration-transition-base * 2,
