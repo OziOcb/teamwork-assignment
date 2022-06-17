@@ -2,6 +2,8 @@ import { defineStore } from "pinia";
 import SwapiService from "@/services/swapi-service";
 import generatePeopleArray from "@/utilities/generatePeopleArray";
 
+const spinnerMinimumTimeout = 300;
+
 export const useStarWarsStore = defineStore({
   id: "star-wars",
 
@@ -21,12 +23,11 @@ export const useStarWarsStore = defineStore({
 
   actions: {
     async fetchPeople(page = this.currentPage) {
-      this.isFetchingPeople = true;
-
       let data;
       const localData = localStorage.getItem(`starWarsPeoplePage${page}`);
 
       if (!localData) {
+        this.isFetchingPeople = true;
         const res = await SwapiService.getAllPeople(page);
 
         data = {
@@ -35,13 +36,17 @@ export const useStarWarsStore = defineStore({
         };
 
         localStorage.setItem(`starWarsPeoplePage${page}`, JSON.stringify(data));
+
+        // TODO: Find a better solution. Right now if the API response already takes 2s, The loading spinner would be visible for 2.3s
+        setTimeout(() => {
+          this.isFetchingPeople = false;
+        }, spinnerMinimumTimeout);
       } else {
         data = JSON.parse(localData);
       }
 
       this.numberOfPeople = data.count;
       this.people = data.results;
-      this.isFetchingPeople = false;
     },
 
     async fetchFilteredPeople(filter, page) {
@@ -51,18 +56,19 @@ export const useStarWarsStore = defineStore({
 
       this.numberOfPeople = res.count;
       this.people = generatePeopleArray(res.results);
-      this.isFetchingPeople = false;
+      setTimeout(() => {
+        this.isFetchingPeople = false;
+      }, spinnerMinimumTimeout);
     },
 
     async fetchPlanet(url) {
-      this.isFetchingPlanet = true;
-
       const planetNo = url.split("/")[5];
 
       let data;
       const localData = localStorage.getItem(`starWarsPlanet${planetNo}`);
 
       if (!localData) {
+        this.isFetchingPlanet = true;
         const res = await SwapiService.getPlanet(planetNo);
 
         data = {
@@ -73,12 +79,15 @@ export const useStarWarsStore = defineStore({
         };
 
         localStorage.setItem(`starWarsPlanet${planetNo}`, JSON.stringify(data));
+
+        setTimeout(() => {
+          this.isFetchingPlanet = false;
+        }, spinnerMinimumTimeout);
       } else {
         data = JSON.parse(localData);
       }
 
       this.planet = data;
-      this.isFetchingPlanet = false;
     },
   },
 });
