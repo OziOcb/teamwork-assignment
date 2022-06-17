@@ -52,4 +52,19 @@ body {
 .router-view {
   margin-top: 10rem;
 }
+
+// ===
+// Helpers
+// ===
+.sr-only {
+  position: absolute;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  width: 1px;
+  height: 1px;
+  white-space: nowrap;
+  border: 0;
+}
 </style>
