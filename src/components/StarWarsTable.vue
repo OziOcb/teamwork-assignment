@@ -32,9 +32,9 @@
         </td>
 
         <td>
-          <button @click="handleOpenPopup(person.planetUrl)">
+          <BaseButton @click="handleOpenPopup(person.planetUrl)">
             {{ person.planetName }}
-          </button>
+          </BaseButton>
         </td>
       </tr>
     </tbody>
@@ -53,6 +53,7 @@ import { useStarWarsStore } from "@/stores/star-wars";
 import debouncedRef from "@/utilities/debouncedRef";
 import _startCase from "lodash.startcase";
 import BaseInput from "@/components/BaseInput.vue";
+import BaseButton from "@/components/BaseButton.vue";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import PaginationButtons from "@/components/PaginationButtons.vue";
 
