@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="header__inner container">
-      <div class="header__logo">LOGO</div>
+      <div class="header__logo"><LogoStarWars /></div>
 
       <div class="header__hamburger">
         <button
@@ -37,6 +37,7 @@
 <script setup>
 import { gsap, Sine, Power1 } from "gsap";
 import { ref, onMounted } from "vue";
+import LogoStarWars from "@/components/icons/LogoStarWars.vue";
 
 const hamburger = ref(null);
 const ariaExpanded = ref(false);
@@ -129,7 +130,7 @@ function handleAriaExpanded() {
 
   &__logo {
     z-index: $layer-hamburger-z-index;
-    width: 5rem;
+    width: 10rem;
   }
 
   &__hamburger {
