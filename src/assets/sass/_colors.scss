@@ -1,9 +1,10 @@
 // BASE
-$color-black: #232323;
-$color-white: #fcfcfc;
+$color-black: #1A1110;
+$color-white: #C4C6B4;
+$color-grey: #494446;
 $color-green: #008080;
-$color-red: #f00;
-$color-accent: #a7a7a7;
+$color-red: #B84509;
+$color-accent: $color-red;
 $color-outline: rgba(0, 123, 255, 0.5);
 $color-box-shadow: rgba(0, 0, 0, 0.25);
 
@@ -12,7 +13,8 @@ $color-body-bg: $color-black;
 $color-body-bg-darker: #000;
 $color-body-bg-light: $color-white;
 $color-text-primary: $color-white;
-$color-text-secondary: #626262;
+$color-text-secondary: $color-black;
 $color-heading-text: $color-text-primary;
-$color-primary: #ef6f6c;
-$color-secondary: #465677;
+$color-primary: #B98157;
+$color-secondary: #70503B;
+$color-tertiary: #6D9796;
