@@ -2,7 +2,8 @@
 
 Your mission, should you choose to accept it, is to create a one-page application with a list of people and the details about their related home planet. The list of people and the information related to a planet can be accessed using the swapi api:
 
-SWAPI api details: https://swapi.dev/
+- SWAPI api details: https://swapi.dev/
+- Live Demo: https://teamwork-assignment.netlify.app/
 
 ## Wireframe description:
 
