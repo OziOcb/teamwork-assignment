@@ -3,7 +3,7 @@
 
   <TheHeader />
 
-  <RouterView />
+  <RouterView class="router-view" />
 </template>
 
 <script setup>
@@ -47,5 +47,9 @@ body {
   padding-right: $size-gutter-width;
   padding-left: $size-gutter-width;
   max-width: $size-container-max-width;
+}
+
+.router-view {
+  margin-top: 10rem;
 }
 </style>
