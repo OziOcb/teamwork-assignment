@@ -1,18 +1,12 @@
 <template>
-  <button class="button" @click="handleClick">
+  <!-- No need for @click because he click listener will be added to the root element of <MyButton>  -->
+  <!-- Docs = https://vuejs.org/guide/components/attrs.html#v-on-listener-inheritance -->
+  <button class="button">
     <div>
       <slot></slot>
     </div>
   </button>
 </template>
-
-<script setup>
-const emit = defineEmits(["click"]);
-
-function handleClick(page) {
-  emit("click", page);
-}
-</script>
 
 <style lang="scss" scoped>
 @keyframes gradient {
