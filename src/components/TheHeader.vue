@@ -28,6 +28,17 @@
               {{ page.name }}
             </RouterLink>
           </li>
+
+          <li class="nav__item">
+            <a
+              class="nav__link"
+              href="https://www.paulthedeveloper.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Author
+            </a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -99,9 +110,12 @@ onMounted(() => {
     .to(".pageTransitionOverlay", 0.6, { autoAlpha: 1 }, 0.5);
 
   navList.addEventListener("click", (e) => {
-    if (!e.target.classList.contains("router-link-exact-active")) {
+    if (
+      !e.target.classList.contains("router-link-exact-active") &&
+      !e.target.attributes.target
+    ) {
       clickNavLinkHandler.play();
-    } else {
+    } else if (!e.target.attributes.target) {
       hamburgerMotion.reverse(0);
     }
   });
